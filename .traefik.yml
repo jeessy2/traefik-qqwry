@@ -1,12 +1,10 @@
-displayName: Demo Plugin
+displayName: traefik-qqwry
 type: middleware
 iconPath: .assets/icon.png
 
-import: github.com/traefik/plugindemo
+import: github.com/jeessy2/traefik-qqwry
 
-summary: '[Demo] Add Request Header'
+summary: 'traefik loves qqwry'
 
 testData:
-  Headers:
-    X-Demo: test
-    X-URL: '{{URL}}'
+  dbPath: 'qqwry.dat'

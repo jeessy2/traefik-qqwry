@@ -1,26 +1,19 @@
-package plugindemo_test
+package main
 
 import (
 	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/traefik/plugindemo"
 )
 
 func TestDemo(t *testing.T) {
-	cfg := plugindemo.CreateConfig()
-	cfg.Headers["X-Host"] = "[[.Host]]"
-	cfg.Headers["X-Method"] = "[[.Method]]"
-	cfg.Headers["X-URL"] = "[[.URL]]"
-	cfg.Headers["X-URL"] = "[[.URL]]"
-	cfg.Headers["X-Demo"] = "test"
+	cfg := CreateConfig()
 
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := plugindemo.New(ctx, next, cfg, "demo-plugin")
+	handler, err := New(ctx, next, cfg, "demo-plugin")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,13 +24,10 @@ func TestDemo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
+	req.RemoteAddr = "1.1.1.1:9999"
 	handler.ServeHTTP(recorder, req)
 
-	assertHeader(t, req, "X-Host", "localhost")
-	assertHeader(t, req, "X-URL", "http://localhost")
-	assertHeader(t, req, "X-Method", "GET")
-	assertHeader(t, req, "X-Demo", "test")
+	// assertHeader(t, req, cfg.Headers.Country, gb18030Decode("澳大利亚"))
 }
 
 func assertHeader(t *testing.T, req *http.Request, key, expected string) {
