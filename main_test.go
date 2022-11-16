@@ -1,4 +1,4 @@
-package main
+package traefik_qqwry
 
 import (
 	"context"
@@ -27,7 +27,7 @@ func TestDemo(t *testing.T) {
 	req.RemoteAddr = "1.1.1.1:9999"
 	handler.ServeHTTP(recorder, req)
 
-	// assertHeader(t, req, cfg.Headers.Country, gb18030Decode("澳大利亚"))
+	assertHeader(t, req, "", "澳大利亚")
 }
 
 func assertHeader(t *testing.T, req *http.Request, key, expected string) {
