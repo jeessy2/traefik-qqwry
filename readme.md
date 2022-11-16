@@ -23,8 +23,8 @@
           traefik-qqwry:
             dbPath: /opt/plugins-storage/qqwry.dat
             # headers:
-            #  city: "X-City"
-            #  isp: "X-Isp"
+            #  city: "X-Cz-City"
+            #  isp: "X-Cz-Isp"
   ```
 
 - thanks
